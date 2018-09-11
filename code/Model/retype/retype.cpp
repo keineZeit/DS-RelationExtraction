@@ -316,7 +316,7 @@ int ArgPos(char *str, int argc, char **argv) {
     return -1;
 }
 
-int main(int argc, char **argv) {
+int main(int argc, char **argv[]) {
     int i;
     if (argc == 1) {
         printf("ReType-full\n\n");
