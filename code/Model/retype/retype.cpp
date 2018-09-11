@@ -304,7 +304,7 @@ void TrainModel() {
     
 }
 
-int ArgPos(char *str, int argc, char **argv[]) {
+int ArgPos(char *str, int argc, char **argv) {
     int a;
     for (a = 1; a < argc; a++) if (!strcmp(str, argv[a])) {
         if (a == argc - 1) {
@@ -316,7 +316,7 @@ int ArgPos(char *str, int argc, char **argv[]) {
     return -1;
 }
 
-int main(int argc, char **argv[]) {
+int main(int argc, char **argv) {
     int i;
     if (argc == 1) {
         printf("ReType-full\n\n");
@@ -342,16 +342,27 @@ int main(int argc, char **argv[]) {
         printf("\t\tWeight on TransE term (default 1.0)\n");
         return 0;
     }
+    printf("Check 1\n");
     if ((i = ArgPos((char *)"-data", argc, argv)) > 0) strcpy(data, argv[i + 1]);
+    printf("Check 2\n");
     if ((i = ArgPos((char *)"-mode", argc, argv)) > 0) mode = argv[i + 1][0];
+    printf("Check 3\n");
     if ((i = ArgPos((char *)"-size", argc, argv)) > 0) vector_size = atoi(argv[i + 1]);
+    printf("Check 4\n");
     if ((i = ArgPos((char *)"-negative", argc, argv)) > 0) negative = atoi(argv[i + 1]);
+    printf("Check 5\n");
     if ((i = ArgPos((char *)"-samples", argc, argv)) > 0) samples = (long long)(atof(argv[i + 1])*1000000);
+    printf("Check 6\n");
     if ((i = ArgPos((char *)"-iters", argc, argv)) > 0) iters = atoi(argv[i + 1])*1;
+    printf("Check 7\n");
     if ((i = ArgPos((char *)"-lr", argc, argv)) > 0) starting_lr = atof(argv[i + 1]);
+    printf("Check 8\n");
     if ((i = ArgPos((char *)"-alpha", argc, argv)) > 0) alpha = atof(argv[i + 1]);
+    printf("Check 9\n");
     if ((i = ArgPos((char *)"-threads", argc, argv)) > 0) num_threads = atoi(argv[i + 1]);
+    printf("Check 10\n");
     if ((i = ArgPos((char *)"-transWeight", argc, argv)) > 0) trans_weight = atof(argv[i + 1]);
+    printf("Check LAST\n");
     sprintf(file_path, "data/intermediate/%s/", data);
     sprintf(output_path, "data/results/%s/", data);
     lr = starting_lr;

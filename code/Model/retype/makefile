@@ -1,6 +1,6 @@
 CC = g++
 CFLAGS = -lm -pthread -O2 -march=native -Wall -funroll-loops -Wno-unused-result -lgsl -lm -lgslcblas
-INCLUDES = -I/usr/include -I../eigen-3.2.5
+INCLUDES = -I/usr/include -I../eigen-3.2.5 -Igsl
 LIBS = -L/usr/lib/x86_64-linux-gnu
 
 retype retype-rm: ransampl.o hplelib.o retype.o retype-rm.o

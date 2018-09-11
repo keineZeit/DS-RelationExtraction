@@ -1,0 +1,7 @@
+None	0	111343
+per:religion	1	2584
+per:country_of_birth	2	12040
+per:country_of_death	3	10265
+per:parents	4	6984
+per:children	5	6984
+per:countries_of_residence	6	1
