@@ -6,6 +6,9 @@ from mention_reader import MentionReader
 reload(sys)
 sys.setdefaultencoding('utf8')
 
+import nltk
+nltk.download('wordnet')
+
 class NERFeature(object):
 
     def __init__(self, is_train, brown_file, requireEmType, isEntityMention, feature_mapping={}, label_mapping={}):
