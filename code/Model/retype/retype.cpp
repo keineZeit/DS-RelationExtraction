@@ -304,7 +304,7 @@ void TrainModel() {
     
 }
 
-int ArgPos(char *str, int argc, char **argv) {
+int ArgPos(char *str, int argc, char **argv[]) {
     int a;
     for (a = 1; a < argc; a++) if (!strcmp(str, argv[a])) {
         if (a == argc - 1) {
