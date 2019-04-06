@@ -6,6 +6,7 @@
 #include <pthread.h>
 #include <gsl/gsl_rng.h>
 #include "hplelib.h"
+#include <signal.h>
 
 char data[MAX_STRING], task[MAX_STRING];
 char file_path[MAX_STRING], output_path[MAX_STRING], mode = 'j';
@@ -30,6 +31,17 @@ line_triple trip;
 
 // double weight[7] = {1, 1, 1, 1, 1, 1, 1};
 double weight[3] = {1, 1, 1};
+
+void test_file(const char *file) {}
+void test_node(line_node *node) {}
+void test_link(line_link *link) {}
+
+void posix_death_signal(int signum)
+{
+	printf("FUCK !!!"); // прощальные действия
+        signal(signum, SIG_DFL); // перепосылка сигнала
+	exit(3); //выход из программы. Если не сделать этого, то обработчик будет вызываться бесконечно.
+}
 
 double func_rand_num()
 {
@@ -214,8 +226,11 @@ void TrainModel() {
     printf("#RM: %d, #RM feature: %d, #RM type: %d\n", node_rm_M.get_num_nodes(), node_rm_F.get_num_nodes(), node_rm_Y.get_num_nodes());
 
     // relation mention links
+    printf("Checkpoint START\n");
     sprintf(file_name, "%srm/mention_feature.txt", file_path);
     link_rm_MF.init(file_name, &node_rm_M, &node_rm_F, negative); // graph is inversed
+    printf("Checkpoint 2\n");
+    signal(SIGSEGV, posix_death_signal);
     sprintf(file_name, "%srm/mention_type.txt", file_path);
     link_rm_MY.init(file_name, &node_rm_M, &node_rm_Y, negative);
     sprintf(file_name, "%srm/feature_type.txt", file_path);
@@ -342,27 +357,16 @@ int main(int argc, char **argv) {
         printf("\t\tWeight on TransE term (default 1.0)\n");
         return 0;
     }
-    printf("Check 1\n");
     if ((i = ArgPos((char *)"-data", argc, argv)) > 0) strcpy(data, argv[i + 1]);
-    printf("Check 2\n");
     if ((i = ArgPos((char *)"-mode", argc, argv)) > 0) mode = argv[i + 1][0];
-    printf("Check 3\n");
     if ((i = ArgPos((char *)"-size", argc, argv)) > 0) vector_size = atoi(argv[i + 1]);
-    printf("Check 4\n");
     if ((i = ArgPos((char *)"-negative", argc, argv)) > 0) negative = atoi(argv[i + 1]);
-    printf("Check 5\n");
     if ((i = ArgPos((char *)"-samples", argc, argv)) > 0) samples = (long long)(atof(argv[i + 1])*1000000);
-    printf("Check 6\n");
     if ((i = ArgPos((char *)"-iters", argc, argv)) > 0) iters = atoi(argv[i + 1])*1;
-    printf("Check 7\n");
     if ((i = ArgPos((char *)"-lr", argc, argv)) > 0) starting_lr = atof(argv[i + 1]);
-    printf("Check 8\n");
     if ((i = ArgPos((char *)"-alpha", argc, argv)) > 0) alpha = atof(argv[i + 1]);
-    printf("Check 9\n");
     if ((i = ArgPos((char *)"-threads", argc, argv)) > 0) num_threads = atoi(argv[i + 1]);
-    printf("Check 10\n");
     if ((i = ArgPos((char *)"-transWeight", argc, argv)) > 0) trans_weight = atof(argv[i + 1]);
-    printf("Check LAST\n");
     sprintf(file_path, "data/intermediate/%s/", data);
     sprintf(output_path, "data/results/%s/", data);
     lr = starting_lr;

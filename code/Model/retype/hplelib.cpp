@@ -208,19 +208,23 @@ int line_link::get_num_edges()
 
 void line_link::init(const char *file_name, line_node *p_u, line_node *p_v, int negative)
 {
+    printf("Checkpoint_init 1\n");
     strcpy(link_file, file_name);
     node_u = p_u;
     node_v = p_v;
     neg_samples = negative;
+    printf("Checkpoint_init 2\n");
     
     if (node_u->get_vector_dim() != node_v->get_vector_dim())
     {
         printf("ERROR: vector dimsions are not same!\n");
         exit(1);
     }
+    printf("Checkpoint_init 3\n");
     
     dgr_u = (double *)calloc(node_u->node_size, sizeof(double));
     dgr_v = (double *)calloc(node_v->node_size, sizeof(double));
+    printf("Checkpoint_init 4\n");
     
     // compute the number of edges
     char str[2 * MAX_STRING + 10000];
@@ -234,6 +238,7 @@ void line_link::init(const char *file_name, line_node *p_u, line_node *p_v, int 
     edge_cnt = 0;
     while (fgets(str, sizeof(str), fi)) edge_cnt++;
     fclose(fi);
+    printf("Checkpoint_init 5\n");
     
     // allocate spaces
     int u, v;
@@ -241,14 +246,17 @@ void line_link::init(const char *file_name, line_node *p_u, line_node *p_v, int 
     edge_u = (int *)malloc(edge_cnt * sizeof(int));
     edge_v = (int *)malloc(edge_cnt * sizeof(int));
     edge_w = (double *)malloc(edge_cnt * sizeof(double));
+    printf("Checkpoint_init 6\n");
     if (edge_u == NULL || edge_v == NULL || edge_w == NULL)
     {
         printf("Error: memory allocation failed!\n");
         exit(1);
     }
+    printf("Checkpoint_init 7\n");
     graph = new std::vector<struct_neighbor>[node_u->node_size];
     nb_set = new std::set<int>[node_u->node_size];
     struct_neighbor cur_nb;
+    printf("Checkpoint_init 8\n");
     
     // read edges
     fi = fopen(link_file, "rb");
@@ -280,6 +288,7 @@ void line_link::init(const char *file_name, line_node *p_u, line_node *p_v, int 
         nb_set[u].insert(v);
     }
     fclose(fi);
+    printf("Checkpoint_init 9\n");
     
     // initialize edge sampler
     ws = ransampl_alloc(edge_cnt);
@@ -291,10 +300,12 @@ void line_link::init(const char *file_name, line_node *p_u, line_node *p_v, int 
         expTable[i] = exp((i / (real)EXP_TABLE_SIZE * 2 - 1) * MAX_EXP); // Precompute the exp() table
         expTable[i] = expTable[i] / (expTable[i] + 1);                   // Precompute f(x) = x / (x + 1)
     }
+    printf("Checkpoint_init 10\n");
     
     // initialize the negative sampling table
     int a, i;
-    double total_pow = 0, d1;
+    double total_pow = 0;
+    long double d1;
     real power = 0.75;
     
     neg_table_u = (int *)calloc(neg_table_size, sizeof(int));
@@ -312,12 +323,17 @@ void line_link::init(const char *file_name, line_node *p_u, line_node *p_v, int 
         }
         if (i >= node_u->node_size) i = node_u->node_size - 1;
     }
+    printf("Checkpoint_init 11\n");
     
     total_pow = 0;
     for (a = 0; a < node_v->node_size; a++) total_pow += pow(dgr_v[a], power);
+    printf("Checkpoint_init 12\n");
     i = 0;
     d1 = pow(dgr_v[i], power) / (real)total_pow;
+    printf("Checkpoint_init 13%d\n", neg_table_size);
     for (a = 0; a < neg_table_size; a++) {
+	if (a >= neg_table_size) printf("a is outside !!!\n");
+	if (a >= INT_MAX) printf("a is more than INT !!!\n");
         neg_table_v[a] = i;
         if (a / (real)neg_table_size > d1) {
             i++;
@@ -325,6 +341,7 @@ void line_link::init(const char *file_name, line_node *p_u, line_node *p_v, int 
         }
         if (i >= node_v->node_size) i = node_v->node_size - 1;
     }
+    printf("Checkpoint_init END\n");
     
     // printf("Reading edges from file: %s, DONE!\n", link_file);
     // printf("Edge size: %lld\n", edge_cnt);
