@@ -1,0 +1,7 @@
+location.location.contains	0	0
+None	1	12
+location.country.capital	2	0
+people.person.nationality	3	0
+location.country.administrative_divisions	4	0
+organization.organization.founders	5	0
+people.person.place_of_birth	6	0

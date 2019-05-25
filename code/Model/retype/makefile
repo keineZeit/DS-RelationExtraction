@@ -1,7 +1,7 @@
 CC = g++
-CFLAGS = -lm -pthread -O2 -march=native -Wall -funroll-loops -Wno-unused-result -lgsl -lm -lgslcblas
-INCLUDES = -I/usr/include -I../eigen-3.2.5
-LIBS = -L/usr/lib/x86_64-linux-gnu
+CFLAGS = -lm -pthread -O2 -march=native -Wall -funroll-loops -Wno-unused-result -lgsl -lm -lgslcblas -no-pie
+INCLUDES = -I/usr/include -I../eigen-3.2.5 -Igsl
+LIBS = -Lgsl/lib
 
 retype retype-rm: ransampl.o hplelib.o retype.o retype-rm.o
 	$(CC) $(CFLAGS) -o retype-rm ransampl.o hplelib.o retype-rm.o $(INCLUDES) $(LIBS) -lgsl -lm -lgslcblas

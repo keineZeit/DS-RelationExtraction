@@ -7,3 +7,5 @@ DataProcessor/stanford-corenlp-python/
 Intermediate/*
 Results/*
 Data/*
+code/DataProcessor/stanza
+code/DataProcessor/stanford*

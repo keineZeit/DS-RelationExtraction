@@ -9,6 +9,11 @@ mentionMapFile = 'data/intermediate/'+data+'/rm/mention.txt'
 typeMapFile = 'data/intermediate/'+data+'/rm/type.txt'
 threshold = float(sys.argv[2])
 
+try:
+  fh = open(predictionFile, 'r')
+except IOError:
+  predictionFile = 'data/results/'+data+'/rm/prediction_emb_retype_cosine.txt'
+
 tid2Name = {}
 with open(typeMapFile) as typeF:
   for line in typeF:

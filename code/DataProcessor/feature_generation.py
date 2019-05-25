@@ -9,6 +9,9 @@ from ner_feature import pipeline, filter, pipeline_test
 from pruning_heuristics import prune
 from statistic import supertype
 
+import nltk
+nltk.download('wordnet')
+
 def get_number(filename):
     with open(filename) as f:
         count = 0
