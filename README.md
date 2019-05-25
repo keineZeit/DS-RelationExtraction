@@ -79,7 +79,13 @@ We have included compilied binaries. If you need to re-compile `retype.cpp` unde
 ```
 $ cd code/Model/retype; make
 ```
-Download gsl 2.4.2 library http://mirror.team-cymru.com/gnu/gsl/ and put it into code/Model/retype folder
+Download gsl 2.4.2 library http://mirror.team-cymru.com/gnu/gsl/ and put it into code/Model/retype folder.
+In certain cases additional gsl packages have to be installed
+```
+$ sudo apt-get install gsl-bin
+$ sudo apt-get install libgsl0-dbg
+$ sudo apt-get install libgsl0-dev
+```
 
 ### Default Run
 As an example, we show how to run CoType on the Wiki-KBP dataset
