@@ -60,7 +60,7 @@ We will take Ubuntu for example.
 * python 2.7
 * Python library dependencies
 ```
-$ pip install pexpect ujson tqdm
+$ pip install pexpect ujson tqdm protobuf unidecode
 ```
 
 * [stanford coreNLP 3.7.0](http://stanfordnlp.github.io/CoreNLP/) and its [python wrapper](https://github.com/stanfordnlp/stanza). Please put the library under `code/DataProcessor/'.
@@ -79,6 +79,7 @@ We have included compilied binaries. If you need to re-compile `retype.cpp` unde
 ```
 $ cd code/Model/retype; make
 ```
+Download gsl 2.4.2 library http://mirror.team-cymru.com/gnu/gsl/ and put it into code/Model/retype folder
 
 ### Default Run
 As an example, we show how to run CoType on the Wiki-KBP dataset
