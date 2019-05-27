@@ -1,7 +1,7 @@
-location.location.contains	0	184
-None	1	870
-location.country.capital	2	96
-people.person.nationality	3	63
-location.country.administrative_divisions	4	51
-organization.organization.founders	5	5
-people.person.place_of_birth	6	3
+None	0	1273
+organization.organization.founders	1	1
+people.person.place_of_birth	2	3
+people.person.nationality	3	2
+location.country.capital	4	2
+location.location.contains	5	14
+location.country.administrative_divisions	6	2
