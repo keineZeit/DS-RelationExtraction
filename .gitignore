@@ -9,3 +9,5 @@ Results/*
 Data/*
 code/DataProcessor/stanza
 code/DataProcessor/stanford*
+data/intermediate/*
+data/results/*
