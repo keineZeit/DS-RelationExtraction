@@ -102,6 +102,15 @@ $ ./run.sh
 
 For relation classification, the "none"-labeled instances need to be first removed from train/test JSON files. The hyperparamters for embedding learning are included in the run.sh script.
 
+In case of libgsl.so.19 error:
+```
+$ sudo find / -name "libgsl.so"
+// let it be found in /usr/local/lib
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
+export LD_LIBRARY_PATH
+sudo ln /usr/lib/libgsl.so /usr/lib/libgsl.so.19
+```
+
 ### Parameters
 Dataset to run on.
 ```
